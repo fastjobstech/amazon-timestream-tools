@@ -26,7 +26,7 @@ public class JsonToTimestreamPayloadFn extends RichMapFunction<String, Timestrea
             String value = entry.getValue();
             // assuming these fields are present in every JSON record
             switch (key.toLowerCase()) {
-                case "time":
+                case "ts":
                     dataPoint.setTime(Long.parseLong(value));
                     break;
                 case "timeunit":

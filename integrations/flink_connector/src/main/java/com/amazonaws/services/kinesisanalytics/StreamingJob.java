@@ -53,8 +53,8 @@ public class StreamingJob {
 
 	private static final Logger LOG = LoggerFactory.getLogger(StreamingJob.class);
 
-	private static final String DEFAULT_STREAM_NAME = "TimestreamTestStream";
-	private static final String DEFAULT_REGION_NAME = "us-east-1";
+	private static final String DEFAULT_STREAM_NAME = "log-profile-view-fastjobs-sg-count";
+	private static final String DEFAULT_REGION_NAME = "ap-southeast-1";
 
 	public static DataStream<String> createKinesisSource(StreamExecutionEnvironment env, ParameterTool parameter) throws Exception {
 
@@ -102,9 +102,10 @@ public class StreamingJob {
 		DataStream<TimestreamPoint> mappedInput =
 				input.map(new JsonToTimestreamPayloadFn()).name("MaptoTimestreamPayload");
 
-		String region = parameter.get("Region", "us-east-1").toString();
-		String databaseName = parameter.get("TimestreamDbName", "kdaflink").toString();
-		String tableName = parameter.get("TimestreamTableName", "kinesisdata1").toString();
+		// String region = parameter.get("Region", "us-east-1").toString();
+		String region = "us-east-1";
+		String databaseName = parameter.get("TimestreamDbName", "fastjobs-prod").toString();
+		String tableName = parameter.get("TimestreamTableName", "log-profile-view-fastjobs-sg").toString();
 		int batchSize = Integer.parseInt(parameter.get("TimestreamIngestBatchSize", "50"));
 
 		TimestreamInitializer timestreamInitializer = new TimestreamInitializer(region);
